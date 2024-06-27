@@ -31,23 +31,23 @@ export const todoStatus = store<Record<string, boolean>>({})
         ...state,
         [result.id]: false,
     }) : state)
-    .on(updateTodoEffect, 'onBefore', (state, { meta: [ [ id ] ] }) => {
+    .on(updateTodoEffect, 'onBefore', (state, { args: [ [ id ] ] }) => {
         return { ...state, [id]: true };
     })
-    .on(updateTodoEffect, 'onSuccess', (state, { meta: [ [ id ] ] }) => {
+    .on(updateTodoEffect, 'onSuccess', (state, { args: [ [ id ] ] }) => {
         return { ...state, [id]: false };
     })
-    .on(removeTodoEffect, 'onBefore', (state, { meta: [ id ] }) => {
+    .on(removeTodoEffect, 'onBefore', (state, { args: [ id ] }) => {
         return { ...state, [id]: true };
     })
-    .on(removeTodoEffect, 'onSuccess', (state, { meta: [ id ] }) => {
+    .on(removeTodoEffect, 'onSuccess', (state, { args: [ id ] }) => {
         delete state[id];
         return { ...state };
     });
 
 export const todoItems = store<Array<DomainTodo>>([])
     .on(loadTodosEffect, 'onSuccess', (_, { result }) => result ?? [])
-    .on(removeTodoEffect, 'onSuccess', (state, { meta: [ id ] }) => state.filter((item) => item.id !== id))
+    .on(removeTodoEffect, 'onSuccess', (state, { args: [ id ] }) => state.filter((item) => item.id !== id))
     .on(
         addTodoEffect,
         'onSuccess',
