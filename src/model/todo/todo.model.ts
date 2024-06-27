@@ -1,4 +1,4 @@
-import { effect, store } from '@vanyamate/sec';
+import { effect, store, combine } from '@vanyamate/sec';
 import { addTodo } from '../../action/todo/addTodo';
 import { loadTodos } from '../../action/todo/loadTodos';
 import { removeTodo } from '../../action/todo/removeTodo';
@@ -18,6 +18,8 @@ export const todoLoading = store(false)
 export const todoAdding = store(false)
     .on(addTodoEffect, 'onBefore', () => true)
     .on(addTodoEffect, 'onFinally', () => false);
+
+export const todoProcess = combine([ todoLoading, todoAdding ], (...args) => args.some((state) => state.get()));
 
 export const todoStatus = store<Record<string, boolean>>({})
     .on(loadTodosEffect, 'onSuccess', (state, { result }) =>
