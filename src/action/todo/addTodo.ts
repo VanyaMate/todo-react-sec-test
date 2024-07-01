@@ -1,4 +1,4 @@
-import { TODO_LOCAL_STORAGE_NAME } from '.const.ts';
+import { TODO_LOCAL_STORAGE_NAME } from './const.ts';
 import type { DomainTodo } from '../../types/todo/todo.type';
 import type { DomainCreateTodo } from '../../types/todo/create-todo.type';
 import { DomainTodoStatus } from '../../types/todo/todo.type';
